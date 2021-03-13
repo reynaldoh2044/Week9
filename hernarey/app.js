@@ -30,6 +30,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/',function(req,res,next){
+  res.render('main',context)
+})
+
+app.get('/',function(req,res,next){
   var context = {};
   pool.query("INSERT INTO todo (`name`) VALUES (?)", [req.query.c], function(err, result){
     if(err){
