@@ -11,6 +11,8 @@ var pool = mysql.createPool({
 
 module.exports.pool = pool;
 
+pool.query("CREATE TABLE  todo (id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL,reps INT ,weight INT,date DATE,unit VARCHAR(255));")
+
 
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
@@ -27,15 +29,16 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-app.get('/',function(req,res){
-    var qParams = [];
-    for (var p in req.query){
-        qParams.push({'name':p, 'value':req.query[p]})
+app.get('/',function(req,res,next){
+  var context = {};
+  pool.query("INSERT INTO todo (`name`) VALUES (?)", [req.query.c], function(err, result){
+    if(err){
+      next(err);
+      return;
     }
-    var context = {};
-    context.dataSent = qParams;
-    res.render('getPage.handlebars',context)
+    context.results = "Inserted id " + result.insertId;
+    res.render('main',context);
+  });
 });
 
 function deleteRow(tableID,currentRow) {
@@ -63,6 +66,8 @@ function deleteRow(tableID,currentRow) {
   //getValues();
 }
 
+
+
 //by visiting this page, the table is reset
 app.get('/reset-table',function(req,res,next){
   var context = {};
@@ -76,31 +81,11 @@ app.get('/reset-table',function(req,res,next){
     "lbs BOOLEAN)";
     pool.query(createString, function(err){
       context.results = "Table reset";
-      res.render('home',context);
+      res.render('main',context);
     })
   });
 });
 
-
-//This is for parsing the body in a POST request. It will handle either URLEncoded or JSON
-app.post('/', function(req,res){
-    var otherParams = [];
-    for (var o in req.query){
-        otherParams.push({'name':o, 'value':req.query[o]})
-    }
-
-
-    var qParams = [];
-    for (var p in req.body){
-      qParams.push({'name':p,'value':req.body[p]})
-    }
-    
-
-    var context = {};
-    context.queryDataSent = otherParams;
-    context.dataSent = qParams;
-    res.render('postPage', context);
-  });
 
 
 app.use(function(req,res){
