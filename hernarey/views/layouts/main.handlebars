@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<title>Database Interactions and UI</title>
+</head>
+
+<fieldset>
+    <form action="classmysql.engr.oregonstate.edu" method="POST">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+
+        <label for="reps">Reps</label>
+        <input type="text" name="reps" id="reps">
+
+        <label for="weight">Weight</label>
+        <input type="text" name="weight" id="weight">
+
+        <label for="date">Date</label>
+        <input type="text" name="date" id="date">
+
+        <label for="unit">Unit</label>
+        <input type="text" name="unit" id="unit">
+    </form>
+</fieldset>
+
+<body>
+    <table id="dataTable">
+    <tr>
+        <!-- <td><input type="checkbox" name="chk"/></td> -->
+        <td>
+            <input type="text" name="Name" /><input type="button" value="delete" onclick="deleteRow('dataTable',this)" />
+        </td>
+    </tr>
+    <tr>
+        <!-- <td><input type="checkbox" name="chk"/></td> -->
+        <td>
+            <input type="text" name="Name" /><input type="button" value="delete" onclick="deleteRow('dataTable',this)" />
+        </td>
+    </tr>
+</table>
+</body>
+</html>

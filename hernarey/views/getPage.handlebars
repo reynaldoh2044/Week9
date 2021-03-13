@@ -1,0 +1,13 @@
+<h1>GET request received.</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    {{#each dataSent}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.value}}</td>
+        </tr>
+    {{/each}}
+</table>

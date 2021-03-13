@@ -1,0 +1,31 @@
+<h1>POST request received.</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    {{#each queryDataSent}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.value}}</td>
+        </tr>
+    {{/each}}
+</table>
+
+<br>
+<br>
+
+<h2>Property Name and Values from Request Body</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    {{#each dataSent}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.value}}</td>
+        </tr>
+    {{/each}}
+</table>
