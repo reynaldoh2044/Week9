@@ -18,7 +18,7 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port', 3430);
+app.set('port', 3431);
 
 
 //This sets up the body parser for reading the request body
@@ -37,6 +37,31 @@ app.get('/',function(req,res){
     context.dataSent = qParams;
     res.render('getPage.handlebars',context)
 });
+
+function deleteRow(tableID,currentRow) {
+  try {
+      var table = document.getElementById(tableID);
+      var rowCount = table.rows.length;
+      for (var i = 0; i < rowCount; i++) {
+          var row = table.rows[i];
+          /*var chkbox = row.cells[0].childNodes[0];*/
+          /*if (null != chkbox && true == chkbox.checked)*/
+          
+          if (row==currentRow.parentNode.parentNode) {
+              if (rowCount <= 1) {
+                  alert("Cannot delete all the rows.");
+                  break;
+              }
+              table.deleteRow(i);
+              rowCount--;
+              i--;
+          }
+      }
+  } catch (e) {
+      alert(e);
+  }
+  //getValues();
+}
 
 //by visiting this page, the table is reset
 app.get('/reset-table',function(req,res,next){
